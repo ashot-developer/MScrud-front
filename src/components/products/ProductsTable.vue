@@ -41,8 +41,25 @@
               flat
             />
           </template>
-          <template v-slot:body-cell-Action="props">
-            <q-td :props="props">
+        <template v-slot:body="props">
+
+          <q-tr :props="props" :class="[props.row.product_qty < 4 ? 'bg_yellow' : '', props.row.product_qty == 0 ? 'bg_red' : '']">
+          <q-td key="sku" :props="props">
+            {{ props.row.sku }}
+          </q-td>
+          <q-td key="product_name" :props="props">
+            {{ props.row.product_name }}
+          </q-td>
+          <q-td key="input_price" :props="props">
+            {{ props.row.input_price }}
+          </q-td>
+          <q-td key="sale_price" :props="props">
+            {{ props.row.sale_price }}
+          </q-td>
+          <q-td key="product_qty" :props="props">
+            {{ props.row.product_qty }}
+          </q-td>
+          <q-td :props="props"  key="Action">
               <q-btn icon="edit" @click="ShowEditModal(props.row)" size="sm" flat dense >
               </q-btn>
               <q-btn
@@ -53,9 +70,11 @@
                 flat
                 dense
               />
+               </q-td>
+        </q-tr>
 
-            </q-td>
-          </template>
+        </template>
+
         </q-table>
       </q-card-section>
     </q-card>
@@ -110,7 +129,7 @@ export default {
         },
         {
           name: "Action",
-          label: "",
+          label: "Գործիք",
           field: "Action",
           sortable: false,
           align: "center",
@@ -173,8 +192,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .q-table__middle .q-table th{
     font-weight: bold!important;
 }
+
+tr.bg_yellow {
+  background-color: #ffffb352!important;
+}
+
+tr.bg_yellow.bg_red {
+  background-color: #db28281f !important;
+}
+
+
 </style>
